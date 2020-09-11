@@ -1,0 +1,653 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="Project.haeggul" %> 
+<%@ page import ="java.sql.*"%>
+<%
+request.setCharacterEncoding("utf-8");
+%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>해꿀</title>
+</head>
+<body>
+<%
+String driver="com.mysql.jdbc.Driver";//mysql jdbc드라이버(필수)
+String url ="jdbc:mysql://localhost:3306/trip?verifyServerCertificate=false&useSSL=true";
+String dbId="root"; //데이터베이스 ID
+String dbPw="wjdghks2@";//데이터베이스 PW
+String sql="";
+String id="";
+//id request
+id=request.getParameter("name");
+//각 나라별 이름받아서 id로 저장
+if(id.equals("가나")){
+	id="390";
+}
+if(id.equals("가봉")){
+	id="2";
+}
+if(id.equals("감비아")){
+	id="5";
+}
+if(id.equals("기니")){
+	id="13";
+}
+if(id.equals("기니비사우")){
+	id="14";
+}
+if(id.equals("나미비아")){
+	id="15";
+}
+if(id.equals("남아프리카공화국")){
+	id="20";
+}
+if(id.equals("니우에")){
+	id="380";
+}
+if(id.equals("니제르")){
+	id="27";
+}
+if(id.equals("라이베리아")){
+	id="37";
+}
+if(id.equals("레바논")){
+	id="40";
+}
+if(id.equals("레소토")){
+	id="370";
+}
+if(id.equals("르완다")){
+	id="45";
+}
+if(id.equals("리비아")){
+	id="375";
+}
+if(id.equals("마다가스카르")){
+	id="49";
+}
+if(id.equals("말라위")){
+	id="55";
+}
+if(id.equals("말리")){
+	id="57";
+}
+if(id.equals("모로코")){
+	id="60";
+}
+if(id.equals("모리셔스")){
+	id="61";
+}
+if(id.equals("모리타니")){
+	id="62";
+}
+if(id.equals("모잠비크")){
+	id="63";
+}
+if(id.equals("바레인")){
+	id="288";
+}
+if(id.equals("베냉")){
+	id="289";
+}
+if(id.equals("보츠와나")){
+	id="91";
+}
+if(id.equals("부룬디")){
+	id="93";
+}
+if(id.equals("부르키나파소")){
+	id="94";
+}
+if(id.equals("사우디아라비아")){
+	id="107";
+}
+if(id.equals("상투메프린시페")){
+	id="371";
+}
+if(id.equals("세네갈")){
+	id="114";
+}
+if(id.equals("세이셸")){
+	id="291";
+}
+if(id.equals("소말리아")){
+	id="120";
+}
+if(id.equals("수단")){
+	id="122";
+}
+if(id.equals("스와질랜드")){
+	id="125";
+}
+if(id.equals("시리아")){
+	id="131";
+}
+if(id.equals("시에라리온")){
+	id="292";
+}
+if(id.equals("아랍에미리트")){
+	id="135";
+}
+if(id.equals("알제리")){
+	id="150";
+}
+if(id.equals("앙골라")){
+	id="151";
+}
+if(id.equals("에리트레아")){
+	id="338";
+}
+if(id.equals("에티오피아")){
+	id="156";
+}
+if(id.equals("예멘")){
+	id="294";
+}
+if(id.equals("오만")){
+	id="162";
+}
+if(id.equals("요르단")){
+	id="165";
+}
+if(id.equals("우간다")){
+	id="166";
+}
+if(id.equals("이라크")){
+	id="174";
+}
+if(id.equals("이란")){
+	id="176";
+}
+if(id.equals("이스라엘")){
+	id="177";
+}
+if(id.equals("이집트")){
+	id="178";
+}
+if(id.equals("잠비아")){
+	id="186";
+}
+if(id.equals("적도기니")){
+	id="187";
+}
+if(id.equals("중앙아프리카공화국")){
+	id="190";
+}
+if(id.equals("지부티")){
+	id="191";
+}
+if(id.equals("짐바브웨")){
+	id="193";
+}
+if(id.equals("차드")){
+	id="295";
+}
+if(id.equals("카메룬")){
+	id="199";
+}
+if(id.equals("카보베르데")){
+	id="200";
+}
+if(id.equals("카타르")){
+	id="202";
+}
+if(id.equals("케냐")){
+	id="206";
+}
+if(id.equals("코모로")){
+	id="331";
+}
+if(id.equals("코트디부아르")){
+	id="212";
+}
+if(id.equals("콩고")){
+	id="214";
+}
+if(id.equals("콩고민주공화국")){
+	id="215";
+}
+if(id.equals("쿠웨이트")){
+	id="216";
+}
+if(id.equals("탄자니아")){
+	id="225";
+}
+if(id.equals("토고")){
+	id="296";
+}
+if(id.equals("튀니지")){
+	id="233";
+}
+if(id.equals("가이아나공화국")){
+	id="315";
+}
+if(id.equals("과테말라")){
+	id="7";
+}
+if(id.equals("그레나다")){
+	id="316";
+}
+if(id.equals("니카라과")){
+	id="28";
+}
+if(id.equals("도미니카연방")){
+	id="369";
+}
+if(id.equals("도미니카공화국")){
+	id="33";
+}
+if(id.equals("멕시코")){
+	id="58";
+}
+if(id.equals("미국")){
+	id="69";
+}
+if(id.equals("바베이도스")){
+	id="318";
+}
+if(id.equals("바하마")){
+	id="339";
+}
+if(id.equals("베네수엘라")){
+	id="85";
+}
+if(id.equals("벨리즈")){
+	id="319";
+}
+if(id.equals("볼리비아")){
+	id="92";
+}
+if(id.equals("브라질")){
+	id="104";
+}
+if(id.equals("세인트루시아")){
+	id="321";
+}
+if(id.equals("세인트빈센트그레나딘")){
+	id="322";
+}
+if(id.equals("세인트키츠네비스")){
+	id="320";
+}
+if(id.equals("수리남")){
+	id="323";
+}
+if(id.equals("아르헨티나")){
+	id="138";
+}
+if(id.equals("아이티")){
+	id="324";
+}
+if(id.equals("앤티가바부다")){
+	id="325";
+}
+if(id.equals("에콰도르")){
+	id="155";
+}
+if(id.equals("엘살바도르")){
+	id="157";
+}
+if(id.equals("온두라스")){
+	id="164";
+}
+if(id.equals("우루과이")){
+	id="167";
+}
+if(id.equals("자메이카")){
+	id="326";
+}
+if(id.equals("칠레")){
+	id="197";
+}
+if(id.equals("캐나다")){
+	id="204";
+}
+if(id.equals("코스타리카")){
+	id="209";
+}
+if(id.equals("콜롬비아")){
+	id="213";
+}
+if(id.equals("쿠바")){
+	id="327";
+}
+if(id.equals("트리니다드토바고")){
+	id="328";
+}
+if(id.equals("파나마")){
+	id="235";
+}
+if(id.equals("파라과이")){
+	id="237";
+}
+if(id.equals("페루")){
+	id="243";
+}
+if(id.equals("나우루")){
+	id="306";
+}
+if(id.equals("네팔")){
+	id="22";
+}
+if(id.equals("뉴질랜드")){
+	id="25";
+}
+if(id.equals("대만")){
+	id="372";
+}
+if(id.equals("동티모르")){
+	id="304";
+}
+if(id.equals("라오스")){
+	id="36";
+}
+if(id.equals("마셜제도")){
+	id="307";
+}
+if(id.equals("마카오(중국)")){
+	id="378";
+}
+if(id.equals("말레이시아")){
+	id="56";
+}
+if(id.equals("몰디브")){
+	id="309";
+}
+if(id.equals("몽골")){
+	id="68";
+}
+if(id.equals("미얀마")){
+	id="75";
+}
+if(id.equals("미크로네시아")){
+	id="308";
+}
+if(id.equals("바누아투")){
+	id="310";
+}
+if(id.equals("방글라데시")){
+	id="82";
+}
+if(id.equals("베트남")){
+	id="86";
+}
+if(id.equals("부탄")){
+	id="329";
+}
+if(id.equals("브루나이")){
+	id="105";
+}
+if(id.equals("사모아")){
+	id="112";
+}
+if(id.equals("솔로몬제도")){
+	id="311";
+}
+if(id.equals("스리랑카")){
+	id="124";
+}
+if(id.equals("싱가포르")){
+	id="134";
+}
+if(id.equals("아프가니스탄")){
+	id="284";
+}
+if(id.equals("우즈베키스탄")){
+	id="168";
+}
+if(id.equals("인도")){
+	id="285";
+}
+if(id.equals("인도네시아")){
+	id="181";
+}
+if(id.equals("일본")){
+	id="183";
+}
+if(id.equals("중국")){
+	id="189";
+}
+if(id.equals("캄보디아")){
+	id="259";
+}
+if(id.equals("쿡제도")){
+	id="330";
+}
+if(id.equals("키르기스스탄")){
+	id="301";
+}
+if(id.equals("키리바시")){
+	id="312";
+}
+if(id.equals("태국")){
+	id="260";
+}
+if(id.equals("타지키스탄")){
+	id="302";
+}
+if(id.equals("통가")){
+	id="230";
+}
+if(id.equals("투르크메니스탄")){
+	id="366";
+}
+if(id.equals("투발루")){
+	id="313";
+}
+if(id.equals("파키스탄")){
+	id="239";
+}
+if(id.equals("파푸아뉴기니")){
+	id="240";
+}
+if(id.equals("팔라우")){
+	id="314";
+}
+if(id.equals("피지")){
+	id="249";
+}
+if(id.equals("필리핀")){
+	id="252";
+}
+if(id.equals("호주")){
+	id="255";
+}
+if(id.equals("홍콩(중국)")){
+	id="377";
+}
+if(id.equals("그리스")){
+	id="11";
+}
+if(id.equals("네덜란드")){
+	id="21";
+}
+if(id.equals("노르웨이")){
+	id="23";
+}
+if(id.equals("덴마크")){
+	id="31";
+}
+if(id.equals("독일")){
+	id="34";
+}
+if(id.equals("라트비아")){
+	id="344";
+}
+if(id.equals("러시아")){
+	id="39";
+}
+if(id.equals("루마니아")){
+	id="43";
+}
+if(id.equals("룩셈부르크")){
+	id="337";
+}
+if(id.equals("리투아니아")){
+	id="345";
+}
+if(id.equals("리히텐슈타인")){
+	id="48";
+}
+if(id.equals("마케도니아")){
+	id="368";
+}
+if(id.equals("모나코")){
+	id="341";
+}
+if(id.equals("몬테네그로")){
+	id="290";
+}
+if(id.equals("몰도바")){
+	id="65";
+}
+if(id.equals("몰타")){
+	id="297";
+}
+if(id.equals("벨기에")){
+	id="87";
+}
+if(id.equals("벨라루스")){
+	id="333";
+}
+if(id.equals("보스니아-헤르체고비나")){
+	id="298";
+}
+if(id.equals("불가리아")){
+	id="98";
+}
+if(id.equals("산마리노")){
+	id="299";
+}
+if(id.equals("세르비아")){
+	id="287";
+}
+if(id.equals("스웨덴")){
+	id="126";
+}
+if(id.equals("스위스")){
+	id="127";
+}
+if(id.equals("스페인")){
+	id="128";
+}
+if(id.equals("슬로바키아")){
+	id="129";
+}
+if(id.equals("슬로베니아")){
+	id="130";
+}
+if(id.equals("아르메니아")){
+	id="334";
+}
+if(id.equals("아이슬란드")){
+	id="139";
+}
+if(id.equals("아일랜드")){
+	id="141";
+}
+if(id.equals("아제르바이잔")){
+	id="335";
+}
+if(id.equals("안도라")){
+	id="340";
+}
+if(id.equals("알바니아")){
+	id="300";
+}
+if(id.equals("에스토니아")){
+	id="154";
+}
+if(id.equals("영국")){
+	id="159";
+}
+if(id.equals("오스트리아")){
+	id="163";
+}
+if(id.equals("우크라이나")){
+	id="169";
+}
+if(id.equals("이탈리아")){
+	id="179";
+}
+if(id.equals("조지아")){
+	id="332";
+}
+if(id.equals("체코")){
+	id="195";
+}
+if(id.equals("카자흐스탄")){
+	id="201";
+}
+if(id.equals("코소보")){
+	id="367";
+}
+if(id.equals("크로아티아")){
+	id="218";
+}
+if(id.equals("키프로스(사이프러스)")){
+	id="258";
+}
+if(id.equals("터키")){
+	id="228";
+}
+if(id.equals("포르투갈")){
+	id="244";
+}
+if(id.equals("폴란드")){
+	id="246";
+}
+if(id.equals("프랑스")){
+	id="248";
+}
+if(id.equals("핀란드")){
+	id="251";
+}
+if(id.equals("헝가리")){
+	id="254";
+}
+
+int count = 0;
+
+Connection conn = null;
+PreparedStatement pstmt = null;   
+ResultSet rs=null;
+//데이터베이스 id값을 업데이트하거나 삽입
+ try{
+	 Class.forName(driver);//JDBC드라이버가 실제로 적용되는 부분
+	 conn=DriverManager.getConnection(url, dbId, dbPw);//데이터 베이스에 연결을 위해서 URL, ID, PW가 사용되는 부분
+	 sql = "select count(*) as tcount from haeggul; "; 
+	 pstmt = conn.prepareStatement(sql);
+	 rs = pstmt.executeQuery();	
+	 while(rs.next())
+	 {
+		 count = rs.getInt("tcount");;
+	 }
+	 if(count>0){
+		 sql = "update haeggul set id = ? "; 
+		 pstmt = conn.prepareStatement(sql);
+		 pstmt.setString(1,id);
+		 pstmt.executeUpdate();	
+	 }else{
+	 	 sql="insert into haeggul(id) values(?)";
+	 	 pstmt=conn.prepareStatement(sql);	
+		 pstmt.setString(1,id);
+	 	 pstmt.executeUpdate();//실행(insert문 -> executeUpdate()메소드 사용)
+	 }
+	 
+ }catch(Exception e){
+	e.printStackTrace();
+ }finally{
+	 if(pstmt != null)
+		 try{pstmt.close();}catch(SQLException sqle){}
+	 if(conn != null)
+		 try{conn.close();}catch(SQLException sqle){}
+}
+%>
+<% String viewPageURI="/forward/result.jsp"; 
+haeggul jdom = new haeggul(); 
+%> 	
+<form action="forward/result.jsp">
+<jsp:forward page="<%= viewPageURI %>"/>
+</form>
+</body>
+</html>
